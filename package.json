@@ -1,15 +1,15 @@
 {
-  "name": "pexelplash",
+  "name": "pixsplash",
   "version": "1.0.0",
   "description": "search images from pexels or unsplash",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "author": "ajaykumbhare",
+  "author": "NabeelMehar",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "telegraf": "^3.38.0"
   }
 }

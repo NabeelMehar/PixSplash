@@ -1,10 +1,10 @@
 const Telegraf = require("telegraf");
-const Bot_Token = process.env.Bot_Token;
+const Bot_Token = '1455527321:AAHiwzlLkh5wlyQmJGcBNw5u3KQuvAM75Kw';
 const app = new Telegraf(Bot_Token);
 const axios = require("axios");
 
-const pexelKey = process.env.pexelKey;
-const unsplashKey = process.env.unsplashKey;
+const pexelKey = '563492ad6f91700001000001873edd6b16e441a48a77c78de6ecb3d0';
+const unsplashKey = 'AxYg02WxsBFd2kSwgg0JYdYoFErezgEf88cZ18BVY0A';
 
 app.start(ctx => {
   console.log(ctx.message.from);
@@ -31,12 +31,12 @@ const fetchImages = async (text) => {
       headers: { Authorization: pexelKey }
     }).catch(() => []);
     if (photos.length > 0) {
-      return photos.map(({ src }) => ({ media: src?.landscape, caption: "Pexel", type: "photo" }));
+      return photos.map(({ src }) => ({ media: src.landscape, caption: "Pexel", type: "photo" }));
     } else {
       const { data: { results } } = await axios.get(`https://api.unsplash.com/search/photos?query=${encodeURI(text)}`, {
         headers: { Authorization: `Client-ID ${unsplashKey}` }
       })
-      return results.map(({ urls }) => ({ media: urls?.regular, caption: "Unsplash", type: "photo" }));
+      return results.map(({ urls }) => ({ media: urls.regular, caption: "Unsplash", type: "photo" }));
     }
   } catch (e) {
     throw e;
@@ -47,7 +47,7 @@ app.on("text", async (ctx) => {
   try {
     ctx.replyWithMarkdown("⌛️ please wait It will take few seconds to grab Images");
     const photos = await fetchImages(ctx.message.text);
-    photos.length > 0 ? ctx.replyWithMediaGroup(photos) : ctx.reply("Sorry Image not found :(");
+    photos.length > 0 ? ctx.replyWithMediaGroup(photos) : ctx.reply("Sorry Images not found :(");
   } catch (e) {
     console.log(e);
     ctx.reply("Please try after sometime PexelsPlash is down :(")
